@@ -1,9 +1,6 @@
-#<centeºr> CURRICULUM VITAE</center>
+# CURRICULUM VITAE
 
-![Mi imagen](Abdurozik.jpg)
-
-
-##<center> Datos personales:</center>
+## Datos personales:
 **- Nombre: Borja Silva Ortega**
 
 **-Fecha de nacimiento:05/04/1992**
@@ -12,11 +9,11 @@
 
 **-Provincia: Palma de Mallorca**
 
-##<center> Formación</center>
+## Formación
 **-E.S.O: I.E.S La Ribera curso 07/08**
 
 **-Certificado Google ciberseguridad nivel básico 2022**
 
 **-Certificado Google Hmtl y css nivel principiante 1/2**
 
-##<center>
+##
