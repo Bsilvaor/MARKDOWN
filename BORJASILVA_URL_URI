@@ -1,0 +1,50 @@
+
+URI: (Uniform Resource Identifier): es una cadena de caracteres que se utiliza para identificar de manera única un recurso en la web.
+Esta identificación permite que los recursos, como documentos, imágenes, servicios web, etc.
+sean localizados y accedidos a través de un sistema de nombres global y consistente.
+URL: (Uniform Resource Locator):s un tipo específico de URI que se utiliza para identificar y localizar recursos en la web.
+Las URLs son ampliamente utilizada en Internet para acceder a páginas web, archivos,servicios web y otros recursos en línea.
+
+https://moodle.nigul.coop/course/modedit.php?add=assign&type=&course=82&section=3&return=0&sr=0
+
+Protocolo: https
+Dominio: moodle.nigul.coop
+Ruta: /course/modedit.php
+Parámetros de consulta: add=assign&type=&course=82&section=3&return=0&sr=0
+Tipo: URL absoluta
+
+github.com/marketplace?type=apps
+
+Dominio: github.com
+Ruta: /marketplace
+Parámetros de consulta: type=apps
+Tipo: URL relativa
+
+https://www.meneame.net/story/primer-vuelo-avion-hidrogeno-mas-grande-mundo#comentario1
+
+Protocolo: https
+Dominio: www.meneame.net
+Ruta: /story/primer-vuelo-avion-hidrogeno-mas-grande-mundo
+Fragmento: #comentario1
+Tipo: URL absoluta
+
+https://thispersondoesnotexist.com/image
+
+Protocolo: https
+Dominio: thispersondoesnotexist.com
+Ruta: /image
+Tipo: URL absoluta
+sftp://example.com
+
+Protocolo: sftp
+Dominio: example.com
+Tipo: URL absoluta
+info/noticia.html?p=2
+
+Ruta: info/noticia.html
+Parámetros de consulta: p=2
+Tipo: URL relativa
+Es importante destacar que las URLs absolutas incluyen toda la información necesaria para localizar un recurso, mientras que las URLs relativas se basan en una URL base para completar la ubicación del recurso. Las URLs relativas son relativas al contexto en el que se encuentran y se utilizan comúnmente
+ en la construcción de enlaces dentro de un siti
+
+El protocolo STFP Utiliza el cifrado para garantizar la seguridad de los datos mientras que HTTP Se utiliza para acceder a páginas web y transferir contenido web, como texto e imágenes.
