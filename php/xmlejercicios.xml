@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+            <comarcas>
+                <comarca>El Raiguer</comarca>
+        
+                    <pueblos>
+                        <pueblo>Consell</pueblo>
+                        <pueblo>Inca</pueblo>
+                        <pueblo>Muro</pueblo>
+                        <pueblo>Binissalem</pueblo>
+                            <nombre>El raiguer</nombre>
+                    </pueblos>
+            </comarcas>
+
