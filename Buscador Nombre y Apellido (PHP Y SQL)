@@ -1,0 +1,48 @@
+<?php
+
+$con = new mysqli('localhost', 'root', '', 'employees');
+
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+    $var = ($_POST['fname']) ? $_POST['fname'] : '';
+    $var2 = ($_POST['flast_name']) ? $_POST['flast_name'] : '';
+} else {
+    $var = "";
+    $var2 = "";
+}
+
+//INTRODUCIMOS LA VARIABLE $VAR2 que es la que hará que podamos buscar por el apellido
+//el else en este caso nos sirve para que al recargar la página los valores que veamos en los inputs estén vacíos.
+
+print("
+<form action=\"\" method=\"post\">
+<label for=\"fname\">Nombre</label>
+<input type=text name=\"fname\">
+<label for=\"flast_name\">Apellido</label>
+<input type=text name=\"flast_name\">
+<input type=\"submit\">
+</form>
+");
+
+if (!empty($var) || !empty($var2)) {
+    $query = "SELECT first_name, last_name FROM employees WHERE first_name LIKE '%" .$var. "%' AND last_name LIKE '%" .$var2. "%'";
+
+    //LIKE '%':nombre'%' "); EJEMPLO DE COMO PONER EL LIKE 
+
+
+    $res1 = mysqli_query($con, $query);
+
+    if(mysqli_num_rows($res1) == 0){
+        echo "No hay resultados";
+    } else {
+        echo "<table border=1>
+              <tr><td>Nombre</td><td>Apellido</td></tr>";
+        while ($row = mysqli_fetch_row($res1)) {
+            echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td></tr>";
+        }
+        echo "</table>";
+    }
+    mysqli_free_result($res1);
+}
+
+mysqli_close($con);
+?>
