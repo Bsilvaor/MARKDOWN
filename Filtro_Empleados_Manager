@@ -1,0 +1,97 @@
+<?php
+// Conexión a la base de datos
+$con = new mysqli('localhost', 'root', '', 'employees');
+if ($con->connect_error) {
+    die("Connection failed: " . $con->connect_error);
+}
+
+// Script de JavaScript para la función de ordenación
+echo "<script>
+function forder(n, d) {
+    document.getElementById('campo_orderid').value = n;
+    document.getElementById('dir_orderid').value = d;
+    document.getElementById('submitForm').submit();
+}
+</script>";
+
+// Inicialización de variables
+$emp_no = $name = $surname = $order_n = $order_s = $where = $order_select = "";
+$limit = " LIMIT 200"; // Limitar a 200 empleados
+
+// Procesamiento de formulario POST
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    // Asignación de variables de POST con control de existencia
+    $emp_no = $_POST['femp_no'] ?? "";
+    $name = $_POST['fname'] ?? "";
+    $surname = $_POST['fsurname'] ?? "";
+    $order_n = $_POST['campo_order'] ?? "";
+    $order_s = $_POST['dir_order'] ?? "";
+
+    // Construcción de la condición WHERE según los filtros
+    $filters = [];
+    if (!empty($emp_no)) $filters[] = "e.emp_no = '".mysqli_real_escape_string($con, $emp_no)."'";
+    if (!empty($name)) $filters[] = "e.first_name LIKE '%".mysqli_real_escape_string($con, $name)."%'";
+    if (!empty($surname)) $filters[] = "e.last_name LIKE '%".mysqli_real_escape_string($con, $surname)."%'";
+    if (!empty($filters)) {
+        $where = "WHERE " . implode(" AND ", $filters);
+    }
+
+    // Construcción de la cláusula ORDER BY
+    $order_select = !empty($order_n) ? "ORDER BY ".($order_n == 'name' ? "e.first_name" : "e.last_name")." ".($order_s == 'u' ? "ASC" : "DESC") : "";
+}
+
+// Formulario HTML para filtros y ordenación
+echo "<form action='?' method='post' id='submitForm'>
+<label for='femp_no'>ID</label>
+<input type='text' name='femp_no' value='$emp_no'>
+<label for='fname'>Nombre</label>
+<input type='text' name='fname' value='$name'>
+<label for='fsurname'>Apellido</label>
+<input type='text' name='fsurname' value='$surname'>
+<input type='hidden' name='campo_order' id='campo_orderid'>
+<input type='hidden' name='dir_order' id='dir_orderid'>
+<input type='submit'>
+</form>";
+
+// Consulta SQL ajustada
+$query = "SELECT 
+            e.emp_no, 
+            e.first_name, 
+            e.last_name, 
+            e.hire_date, 
+            d.dept_name, 
+            dm.from_date AS manager_from_date, 
+            dm.to_date AS manager_to_date
+          FROM 
+            employees e
+          LEFT JOIN 
+            dept_manager dm ON e.emp_no = dm.emp_no
+          LEFT JOIN 
+            departments d ON dm.dept_no = d.dept_no
+          $where
+          $order_select
+          $limit";
+
+$result = $con->query($query);
+
+// Mostrar resultados en una tabla HTML
+if ($result) {
+    echo "<table border='1'><tr><td>ID</td><td>Nombre</td><td>Apellido</td><td>Fecha de Contratación</td><td>Departamento</td><td>Desde</td><td>Hasta</td></tr>";
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>
+                <td>".$row['emp_no']."</td>
+                <td>".$row['first_name']."</td>
+                <td>".$row['last_name']."</td>
+                <td>".$row['hire_date']."</td>
+                <td>".($row['dept_name'] ?? 'N/A')."</td>
+                <td>".($row['manager_from_date'] ?? 'N/A')."</td>
+                <td>".($row['manager_to_date'] ?? 'N/A')."</td>
+              </tr>";
+    }
+    echo "</table>";
+} else {
+    echo "Error en la consulta: " . $con->error;
+}
+
+$con->close();
+?>
